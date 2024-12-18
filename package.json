@@ -1,0 +1,16 @@
+{
+  "name": "3dgaussian",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@mkkellogg/gaussian-splats-3d": "^0.4.5",
+    "http": "^0.0.1-security"
+  }
+}
