@@ -9,7 +9,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sphericalHarmonicsDegree': 2,
     'sharedMemoryForWorkers': false
 });
-let path = 'assets/3dModels/truck/playroom.splat';
+let path = 'assets/3dModels/playroom/playroom.splat';
 viewer.addSplatScene(path, {
   'progressiveLoad': false
 })
