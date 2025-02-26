@@ -8,23 +8,28 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(-1, 4.0, 0); // ajusta camera para ter a posição e tamanho do usuario
+camera.position.set(-1, 4.0, 0);
 
 const viewer = new GaussianSplats3D.Viewer({
     'selfDrivenMode': false,
     'useBuiltInControls': false,
     'camera': camera,
     'renderer': renderer,
-    'cameraUp': [0, -1, 0], // eixo y estava invertido
+    'cameraUp': [0, -1, 0],
     'initialCameraPosition': [0, 1.6, 5],
     'sphericalHarmonicsDegree': 2,
     'sharedMemoryForWorkers': false
 });
 
-viewer.addSplatScene('assets/3dModels/playroom/playroom.ksplat', { 'progressiveLoad': false, 'position': [0, 1, 0],
-    'rotation': [1, 0, 0, 0],
+viewer.addSplatScene('assets/3dModels/playroom/playroom.ksplat', {
     'progressiveLoad': true,
-    'scale': [1.5, 1.5, 1.5] }).then(() => animate());
+    'position': [0, 1, 0],
+    'rotation': [1, 0, 0, 0],
+    'scale': [1.5, 1.5, 1.5]
+}).then(() => {
+    console.log('Modelo carregado com sucesso!');
+    animate();
+}).catch(err => console.error('Erro ao carregar modelo:', err));
 
 
 const controls = new PointerLockControls(camera, document.body);
@@ -57,30 +62,27 @@ window.addEventListener('keyup', (event) => {
 });
 
 function animate() {
-  requestAnimationFrame(animate);
-  
-  const speed = isRunning ? moveSpeed * 2 : moveSpeed;
-  direction.set(0, 0, 0);
-  
-  if (isMoving.forward) direction.z -= 1;
-  if (isMoving.backward) direction.z += 1;
-  if (isMoving.left) direction.x -= 1;
-  if (isMoving.right) direction.x += 1;
-  
-  if (direction.length() > 0) direction.normalize();
-  
-  direction.applyQuaternion(camera.quaternion);
-  direction.y = 0;
-  direction.normalize();
+    requestAnimationFrame(animate);
 
-  velocity.copy(direction).multiplyScalar(speed);
-  
-  camera.position.add(velocity);
-  camera.position.y = 4.0;
+    const speed = isRunning ? moveSpeed * 2 : moveSpeed;
+    direction.set(0, 0, 0);
 
-  //if (velocity.lengthSq() > 0.0001) { // renderização baseada em movimento
+    if (isMoving.forward) direction.z -= 1;
+    if (isMoving.backward) direction.z += 1;
+    if (isMoving.left) direction.x -= 1;
+    if (isMoving.right) direction.x += 1;
+
+    if (direction.length() > 0) direction.normalize();
+    
+    direction.applyQuaternion(camera.quaternion);
+    direction.y = 0;
+    direction.normalize();
+
+    velocity.lerp(direction.multiplyScalar(speed), 0.1);
+    
+    camera.position.add(velocity);
+    camera.position.y = 4.0;
+
     viewer.update();
     viewer.render();
-  //}
 }
-
