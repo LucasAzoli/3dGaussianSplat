@@ -8,7 +8,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(-1, 1.0, 0);
+camera.position.set(-1, 1.1, 0);
 
 const viewer = new GaussianSplats3D.Viewer({
     'selfDrivenMode': false,
@@ -21,7 +21,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sharedMemoryForWorkers': false
 });
 
-viewer.addSplatScene('assets/3dModels/smartclass3/point_cloud.ply', {
+viewer.addSplatScene('assets/3dModels/smartclass3/point_cloud.ksplat', {
     'progressiveLoad': true,
     'position': [0, 1, 0],
     'rotation': [1, 0, 0, 0],
@@ -80,7 +80,7 @@ function animate() {
     velocity.lerp(direction.multiplyScalar(speed), 0.1);
     
     camera.position.add(velocity);
-    camera.position.y = 1.0;
+    camera.position.y = 1.1;
 
     viewer.update();
     viewer.render();
