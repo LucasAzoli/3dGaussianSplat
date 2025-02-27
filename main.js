@@ -21,7 +21,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sharedMemoryForWorkers': false
 });
 
-viewer.addSplatScene('assets/3dModels/smartclass3/point_cloud.ksplat', {
+viewer.addSplatScene('./assets/3dModels/smartclass3/point_cloud.ply', {
     'progressiveLoad': true,
     'position': [0, 1, 0],
     'rotation': [1, 0, 0, 0],
