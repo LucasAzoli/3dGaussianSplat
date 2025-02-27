@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import * as GaussianSplats3D from './node_modules/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js';
-import { PointerLockControls } from './assets/PointerLockControls.js';
+import * as GaussianSplats3D from '/3dGaussianSplat/node_modules/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js';
+import { PointerLockControls } from '/3dGaussianSplat/assets/PointerLockControls.js';
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -21,7 +21,7 @@ const viewer = new GaussianSplats3D.Viewer({
     'sharedMemoryForWorkers': false
 });
 
-viewer.addSplatScene('./assets/3dModels/smartclass3/point_cloud.ply', {
+viewer.addSplatScene('/3dGaussianSplat/assets/3dModels/smartclass3/point_cloud.ply', {
     'progressiveLoad': true,
     'position': [0, 1, 0],
     'rotation': [1, 0, 0, 0],
